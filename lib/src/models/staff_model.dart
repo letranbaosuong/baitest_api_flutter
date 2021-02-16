@@ -37,7 +37,9 @@ class StaffModel {
     var json = Map<String, dynamic>();
     json['tenNhanVien'] = _tenNhanVien;
     json['maPhongBan'] = _maPhongBan;
-    json['phongBan'] = _phongBan.toJson();
+    if (_phongBan != null) {
+      json['phongBan'] = _phongBan.toJson();
+    }
     if (_maNhanVien != null) {
       json['maNhanVien'] = _maNhanVien;
     }

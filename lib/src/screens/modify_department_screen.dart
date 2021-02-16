@@ -78,7 +78,7 @@ class _ModifyDepartmentScreenState extends State<ModifyDepartmentScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               RaisedButton(
-                child: Text('Add'),
+                child: Text('Thêm'),
                 onPressed: () {
                   _departmentBloc
                       .postDepartment(_departmentBloc.departmentSelected);
@@ -86,7 +86,7 @@ class _ModifyDepartmentScreenState extends State<ModifyDepartmentScreen> {
               ),
               RaisedButton(
                 child: Text(
-                    'Edit (${_departmentBloc.departmentSelected.getMaPhongBan})'),
+                    'Sửa (${_departmentBloc.departmentSelected.getMaPhongBan})'),
                 onPressed: () {
                   _departmentBloc
                       .putDepartment(_departmentBloc.departmentSelected);
@@ -94,7 +94,7 @@ class _ModifyDepartmentScreenState extends State<ModifyDepartmentScreen> {
               ),
               RaisedButton(
                 child: Text(
-                    'Delete (${_departmentBloc.departmentSelected.getMaPhongBan})'),
+                    'Xóa (${_departmentBloc.departmentSelected.getMaPhongBan})'),
                 onPressed: () {
                   _showAlertDialogDeleteDepartment(
                       context, _departmentBloc.departmentSelected);
@@ -109,7 +109,7 @@ class _ModifyDepartmentScreenState extends State<ModifyDepartmentScreen> {
 
   AppBar _buildAppBarDepartment() {
     return AppBar(
-      title: Text('Phòng ban'),
+      title: Text('Quản lý phòng ban'),
     );
   }
 

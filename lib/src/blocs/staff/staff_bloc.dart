@@ -23,7 +23,7 @@ class StaffBloc {
       if (event is FetchStaffs) {
       } else if (event is PostStaff) {
         event.staff.maNhanVien = null;
-        event.staff.getPhongBan.maPhongBan = null;
+        event.staff.phongBan = null;
         var resStaff = await _baiTestApiRepository.postStaff(event.staff);
         print(
             'post staff - ${resStaff.getMaNhanVien} - ${resStaff.getTenNhanVien}');
