@@ -6,7 +6,8 @@ import 'package:baitestapi/src/models/staff_model.dart';
 import 'package:requests/requests.dart';
 
 class BaiTestApiProvider {
-  final _baseUrl = 'https://192.168.56.1:45455/api/baitest';
+  // final _baseUrl = 'https://192.168.56.1:45456/api/baitest';
+  final _hostUrl = 'http://hungle78345.somee.com/api/baitest';
   final _staffs = '/nhanviens';
   final _departments = '/phongbans';
   final _postDepartment = '/AddPhongBan';
@@ -23,7 +24,7 @@ class BaiTestApiProvider {
 
   Future<List<StaffModel>> fetchStaffs() async {
     Response response;
-    response = await Requests.get(_baseUrl + _staffs, verify: false);
+    response = await Requests.get(_hostUrl + _staffs, verify: false);
     if (response.statusCode == 200) {
       Iterable listResponse = json.decode(response.content());
       List<StaffModel> staffs = List<StaffModel>.from(
@@ -38,7 +39,7 @@ class BaiTestApiProvider {
 
   Future<List<DepartmentModel>> fetchDepartments() async {
     Response response;
-    response = await Requests.get(_baseUrl + _departments, verify: false);
+    response = await Requests.get(_hostUrl + _departments, verify: false);
     if (response.statusCode == 200) {
       Iterable listResponse = json.decode(response.content());
       List<DepartmentModel> departments = List<DepartmentModel>.from(
@@ -54,7 +55,7 @@ class BaiTestApiProvider {
   Future<DepartmentModel> fetchDepartmentById(int departmentId) async {
     Response response;
     response = await Requests.get(
-      _baseUrl + _getDepartmentById + '/$departmentId',
+      _hostUrl + _getDepartmentById + '/$departmentId',
       headers: _header,
       verify: false,
     );
@@ -72,7 +73,7 @@ class BaiTestApiProvider {
     var myDepartment = department.toJson();
     var departmentBody = json.encode(myDepartment);
     var res = await Requests.post(
-      _baseUrl + _postDepartment,
+      _hostUrl + _postDepartment,
       headers: _header,
       body: departmentBody,
       bodyEncoding: RequestBodyEncoding.PlainText,
@@ -91,7 +92,7 @@ class BaiTestApiProvider {
     var myDepartment = department.toJson();
     var departmentBody = json.encode(myDepartment);
     var res = await Requests.put(
-      _baseUrl + _putDepartment,
+      _hostUrl + _putDepartment,
       headers: _header,
       body: departmentBody,
       bodyEncoding: RequestBodyEncoding.PlainText,
@@ -108,7 +109,7 @@ class BaiTestApiProvider {
 
   Future<DepartmentModel> deleteDepartment(int departmentId) async {
     var res = await Requests.delete(
-      _baseUrl + _deleteDepartment + '/$departmentId',
+      _hostUrl + _deleteDepartment + '/$departmentId',
       headers: _header,
       verify: false,
     );
@@ -125,7 +126,7 @@ class BaiTestApiProvider {
     var myStaff = staff.toJson();
     var staffBody = json.encode(myStaff);
     var res = await Requests.post(
-      _baseUrl + _postStaff,
+      _hostUrl + _postStaff,
       headers: _header,
       body: staffBody,
       bodyEncoding: RequestBodyEncoding.PlainText,
@@ -144,7 +145,7 @@ class BaiTestApiProvider {
     var myStaff = staff.toJson();
     var staffBody = json.encode(myStaff);
     var res = await Requests.put(
-      _baseUrl + _putStaff,
+      _hostUrl + _putStaff,
       headers: _header,
       body: staffBody,
       bodyEncoding: RequestBodyEncoding.PlainText,
@@ -162,7 +163,7 @@ class BaiTestApiProvider {
   Future<StaffModel> deleteStaff(int staffId) async {
     var objBody = json.encode(staffId);
     var res = await Requests.delete(
-      _baseUrl + _deleteStaff,
+      _hostUrl + _deleteStaff,
       headers: _header,
       body: objBody,
       bodyEncoding: RequestBodyEncoding.PlainText,

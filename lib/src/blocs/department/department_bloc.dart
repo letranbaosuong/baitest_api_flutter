@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:baitestapi/src/blocs/blocs.dart';
 import 'package:baitestapi/src/blocs/department/department.dart';
 import 'package:baitestapi/src/models/models.dart';
 import 'package:baitestapi/src/resources/resources.dart';
@@ -9,12 +10,14 @@ class DepartmentBloc {
   DepartmentBloc._internal();
   static final _singleton = DepartmentBloc._internal();
   static DepartmentBloc getInstance() => _singleton;
+  final _staffBloc = StaffBloc.getInstance();
   final _baiTestApiRepository = BaiTestApiRepository();
   final _departmentsFetcher = PublishSubject<List<DepartmentModel>>();
   final _eventDepartmentController =
       StreamController<DepartmentEvent>.broadcast();
   Stream<List<DepartmentModel>> get departments => _departmentsFetcher.stream;
   DepartmentModel departmentSelected = DepartmentModel(0, '');
+  DepartmentModel resDepartment;
 
   void initialize() {
     _listenDepartment();
@@ -30,7 +33,7 @@ class DepartmentBloc {
         print('fetch departments');
       } else if (event is PostDepartment) {
         event.department.maPhongBan = null;
-        var resDepartment =
+        resDepartment =
             await _baiTestApiRepository.postDepartment(event.department);
         List<DepartmentModel> listD =
             await _baiTestApiRepository.fetchDepartments();
@@ -38,7 +41,7 @@ class DepartmentBloc {
         departmentSelected = listD[listD.length - 1];
         print('post - fetch departments >>> ${resDepartment.getMaPhongBan}');
       } else if (event is PutDepartment) {
-        var resDepartment =
+        resDepartment =
             await _baiTestApiRepository.putDepartment(event.department);
         List<DepartmentModel> listD =
             await _baiTestApiRepository.fetchDepartments();
@@ -47,14 +50,18 @@ class DepartmentBloc {
         _departmentsFetcher.sink.add(listD);
         departmentSelected = listD[indexPut];
         print('put - fetch department >>> ${resDepartment.getMaPhongBan}');
+        _staffBloc.initFetchStaffs();
+        print('fetch update staffs');
       } else if (event is DeleteDepartment) {
-        var resDepartment =
+        resDepartment =
             await _baiTestApiRepository.deleteDepartment(event.departmentId);
         List<DepartmentModel> listD =
             await _baiTestApiRepository.fetchDepartments();
         _departmentsFetcher.sink.add(listD);
         departmentSelected = listD[0];
         print('delete - fetch department >>> ${resDepartment.getMaPhongBan}');
+        _staffBloc.initFetchStaffs();
+        print('fetch update staffs');
       } else if (event is FetchDepartmentById) {
         List<DepartmentModel> listD =
             await _baiTestApiRepository.fetchDepartments();

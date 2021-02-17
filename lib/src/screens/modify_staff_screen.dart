@@ -21,12 +21,12 @@ class _ModifyStaffScreenState extends State<ModifyStaffScreen> {
 
   @override
   void initState() {
-    _departmentBloc.initFetchDepartments();
     if (staff != null) {
       print(
           '${staff.getPhongBan.getMaPhongBan} - ${staff.getPhongBan.getTenPhongBan}');
       _departmentBloc.fetchDepartmentById(staff.getPhongBan.getMaPhongBan);
     } else {
+      _departmentBloc.initFetchDepartments();
       staff = StaffModel(0, '', 0, DepartmentModel(0, ''));
     }
     super.initState();

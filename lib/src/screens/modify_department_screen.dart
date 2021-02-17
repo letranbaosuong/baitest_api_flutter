@@ -124,7 +124,7 @@ class _ModifyDepartmentScreenState extends State<ModifyDepartmentScreen> {
         child: CupertinoAlertDialog(
           title: Text('Xác nhận xóa Phòng ban!'),
           content: Text(
-              'Bạn có chắc chắn muốn xóa phòng ban ${department.getTenPhongBan} này không?'),
+              'Tất cả nhân viên trong phòng ban ${department.getTenPhongBan} sẽ bị xóa. Bạn có chắc chắn không?'),
           actions: <Widget>[
             CupertinoDialogAction(
                 isDefaultAction: true,
